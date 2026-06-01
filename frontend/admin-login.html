@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>"/>
+  <title>Admin Login — DLS Arena</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .shield { font-size: 48px; text-align: center; margin-bottom: 12px; }
+    .admin-label { text-align: center; font-size: 12px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; }
+    .pw-eye {
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      background:none; border:none; cursor:pointer; color:var(--muted); font-size:18px; padding:0;
+    }
+  </style>
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">⚽ DLS <span>Arena</span></div>
+    <div class="shield">🔐</div>
+    <div class="admin-label">Admin Access</div>
+
+    <div id="authError" class="auth-error hidden"></div>
+
+    <div class="form-group">
+      <label class="form-label">Admin Email</label>
+      <input class="form-input" type="email" id="adminEmail" placeholder="admin@dlsarena.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div style="position:relative">
+        <input class="form-input" type="password" id="adminPass" placeholder="••••••••" style="padding-right:42px"/>
+        <button type="button" onclick="togglePw('adminPass',this)" class="pw-eye">👁</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Admin PIN</label>
+      <div style="position:relative">
+        <input class="form-input" type="password" id="adminPin" placeholder="••••" maxlength="8" style="padding-right:42px; letter-spacing:4px"/>
+        <button type="button" onclick="togglePw('adminPin',this)" class="pw-eye">👁</button>
+      </div>
+      <div class="form-hint">PIN is known only to you</div>
+    </div>
+
+    <button class="btn btn-primary btn-full" onclick="doAdminLogin()" id="loginBtn">Access Admin Panel</button>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script>
+  // Redirect if already admin
+  const _u = getUser();
+  if (_u?.is_admin && _u?.admin_verified) window.location.href = '/admin.html';
+
+  function showError(msg) {
+    const el = document.getElementById('authError');
+    el.textContent = '⚠ ' + msg;
+    el.classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function togglePw(id, btn) {
+    const input = document.getElementById(id);
+    input.type = input.type === 'password' ? 'text' : 'password';
+    btn.textContent = input.type === 'text' ? '🙈' : '👁';
+  }
+
+  async function doAdminLogin() {
+    const email    = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPass').value;
+    const pin      = document.getElementById('adminPin').value;
+    if (!email || !password || !pin) return showError('All fields are required');
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true; btn.textContent = 'Verifying…';
+    try {
+      const data = await API.post('/auth/admin-login', { email, password, pin });
+      localStorage.setItem('dls_token', data.token);
+      localStorage.setItem('dls_user',  JSON.stringify(data.user));
+      window.location.href = '/admin.html';
+    } catch (e) {
+      showError(e.message);
+      btn.disabled = false; btn.textContent = 'Access Admin Panel';
+    }
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Enter') doAdminLogin(); });
+</script>
+</body>
+</html>

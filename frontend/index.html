@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>"/>
+  <title>DLS Arena — Tournament Platform</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body class="football-bg">
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">⚽ DLS <span>Arena</span></div>
+    <div class="navbar-spacer"></div>
+    <a href="/auth.html" class="btn btn-ghost btn-sm">Sign In</a>
+    <a href="/auth.html#register" class="btn btn-primary btn-sm">Register</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Compete. Win.<br/><span>Dominate DLS.</span></h1>
+  <p>The official tournament platform for Dream League Soccer. Register, pay, and play — all in one place.</p>
+  <div class="hero-btns">
+    <a href="/auth.html#register" class="btn btn-primary">🏆 Join a Tournament</a>
+    <a href="/auth.html" class="btn btn-ghost">Sign In</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-card">
+    <div class="fc-icon">🎟️</div>
+    <h3>Easy Registration</h3>
+    <p>Register for any open tournament, pay entry fee via Razorpay/UPI and get confirmed instantly.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-icon">🏆</div>
+    <h3>Multiple Formats</h3>
+    <p>Knockout, League, and Group Stage + Knockout. Every tournament format is supported.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-icon">📤</div>
+    <h3>Screenshot Verification</h3>
+    <p>Submit your match result via screenshot. Both players submit — admin verifies for 100% fair play.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-icon">📊</div>
+    <h3>Live Standings</h3>
+    <p>Track brackets, match results, and leaderboards in real time as the tournament progresses.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-icon">🔔</div>
+    <h3>Announcements</h3>
+    <p>Get notified when matches are scheduled, tournaments start, and results are confirmed.</p>
+  </div>
+  <div class="feature-card">
+    <div class="fc-icon">🥇</div>
+    <h3>Hall of Fame</h3>
+    <p>Champions are immortalised. Check who has won past tournaments and claim your spot.</p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="steps">
+  <h2>How It Works</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <h4>Register & Pay</h4>
+      <p>Create an account, browse open tournaments, register with your in-game name and pay the entry fee via the provided payment link.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <h4>Get Matched</h4>
+      <p>Once the tournament starts, your match is generated. You see your opponent and the Friends Mode password to find each other in DLS.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <h4>Play in DLS</h4>
+      <p>Open DLS → Friends Mode → enter the password shown on your dashboard. You and your opponent are matched instantly.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <h4>Submit Screenshot</h4>
+      <p>After the match, both players upload a screenshot of the result screen. Admin reviews both screenshots and confirms the score.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text">
+      <h4>Advance & Win</h4>
+      <p>Winners automatically advance to the next round. Track your progress on your dashboard until you lift the trophy!</p>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:32px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:12px">
+  © 2026 DLS Arena — Unofficial DLS Tournament Platform
+</div>
+
+<script>
+  // If already logged in, redirect
+  const user = (() => { try { return JSON.parse(localStorage.getItem('dls_user')); } catch { return null; } })();
+  if (user?.is_admin) window.location.href = '/admin.html';
+  else if (user) window.location.href = '/dashboard.html';
+</script>
+</body>
+</html>

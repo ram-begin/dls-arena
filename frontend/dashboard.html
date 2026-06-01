@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>"/>
+  <title>Dashboard — DLS Arena</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body class="football-bg">
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-brand">⚽ DLS <span>Arena</span></div>
+    <div class="navbar-spacer"></div>
+    <div class="nav-user">
+      <div class="nav-avatar" id="navAvatar">?</div>
+      <span id="navName" style="font-size:13px;font-weight:500"></span>
+      <span style="color:#30363d;font-size:16px;margin:0 4px">|</span>
+      <button class="nav-link" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="dash-hero">
+  <div class="dash-hero-icon">⚽</div>
+  <div>
+    <h2 id="heroTitle">Welcome back!</h2>
+    <p id="heroSub" style="font-size:12px;color:var(--muted);margin-top:2px">Loading your stats…</p>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" id="tabBtn-home"       onclick="switchTab('home',       this)">🏠 Home</button>
+  <button class="tab-btn"        id="tabBtn-tournaments" onclick="switchTab('tournaments', this)">🏆 Tournaments</button>
+  <button class="tab-btn"        id="tabBtn-myregs"      onclick="switchTab('myregs',      this)">🎟️ My Entries</button>
+  <button class="tab-btn"        id="tabBtn-mymatches"   onclick="switchTab('mymatches',   this)">📤 Submit Results</button>
+  <button class="tab-btn"        id="tabBtn-bracket"     onclick="switchTab('bracket',     this)">📊 All Matches</button>
+  <button class="tab-btn"        id="tabBtn-appeals"     onclick="switchTab('appeals',     this)">⚖️ My Appeals</button>
+</div>
+
+<!-- HOME -->
+<div id="tab-home" class="page active"></div>
+
+<!-- TOURNAMENTS -->
+<div id="tab-tournaments" class="page">
+  <div style="max-width:640px;margin:0 auto">
+    <div class="section-hdr"><div class="section-hdr-title">All Tournaments</div></div>
+    <div id="toursList" style="padding:0 20px 20px"></div>
+  </div>
+</div>
+
+<!-- MY ENTRIES -->
+<div id="tab-myregs" class="page">
+  <div style="max-width:640px;margin:0 auto">
+    <div class="section-hdr"><div class="section-hdr-title">🎟️ My Entries</div></div>
+    <div id="myRegsList"></div>
+  </div>
+</div>
+
+<!-- SUBMIT RESULTS -->
+<div id="tab-mymatches" class="page">
+  <div style="max-width:640px;margin:0 auto">
+    <div class="section-hdr"><div class="section-hdr-title">📤 Submit Results</div></div>
+    <div id="myMatchesList" style="padding:0 20px 20px"></div>
+  </div>
+</div>
+
+<!-- BRACKET -->
+<div id="tab-bracket" class="page">
+  <div style="max-width:800px;margin:0 auto;padding:0 20px 20px">
+    <div class="section-hdr"><div class="section-hdr-title">🏟️ Tournament Bracket</div></div>
+    <div class="form-group" style="padding:0 0 8px">
+      <select class="form-select" id="bracketTournamentSelect" onchange="renderBracket()">
+        <option value="">— Select a tournament —</option>
+      </select>
+    </div>
+    <div id="bracketView"></div>
+  </div>
+</div>
+<!-- APPEALS -->
+<div id="tab-appeals" class="page">
+  <div style="max-width:640px;margin:0 auto">
+    <div class="section-hdr"><div class="section-hdr-title">⚖️ My Appeals</div></div>
+    <div id="appealsList" style="padding:0 20px 20px"></div>
+  </div>
+</div>
+<!-- REGISTER TOURNAMENT MODAL -->
+<div id="regModal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🎟️ Register for Tournament</div>
+      <button class="modal-close" onclick="closeModal('regModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="regModalInfo" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:16px"></div>
+      <div class="form-group">
+        <label class="form-label">Your In-Game Name (DLS)</label>
+        <input class="form-input" id="regPlayerName" placeholder="Enter your DLS username"/>
+        <div class="form-hint">The name shown to your opponents during the tournament</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your DLS Team Name</label>
+        <input class="form-input" id="regTeamName" placeholder="e.g. RAM, Rahul FC, Galaxy XI"/>
+        <div class="form-hint">Must match exactly what's shown in your DLS profile</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input class="form-input" id="regPhone" type="tel" placeholder="e.g. 9876543210"/>
+        <div class="form-hint">Admin will contact you on WhatsApp for match updates</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">DLS Profile Screenshot</label>
+        <div class="upload-zone" id="profileUploadZone" onclick="document.getElementById('profileScreenshotFile').click()">
+          <div class="uz-icon">📱</div>
+          <p>Upload your DLS profile screenshot showing team name and stars</p>
+          <p style="font-size:11px;margin-top:4px;color:var(--muted)">Open DLS → tap your profile → take screenshot</p>
+        </div>
+        <input type="file" id="profileScreenshotFile" accept="image/*" style="display:none" onchange="previewProfileScreenshot(this)"/>
+        <img id="profileUploadPreview" class="upload-preview hidden" alt="Profile Preview"/>
+      </div>
+      <div id="regModalError" class="auth-error hidden"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('regModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitRegistration()" id="regSubmitBtn">Register & Pay →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREENSHOT SUBMIT MODAL -->
+<div id="submitModal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📤 Submit Match Result</div>
+      <button class="modal-close" onclick="closeModal('submitModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="submitMatchInfo" style="margin-bottom:16px"></div>
+
+      <div class="form-group">
+        <label class="form-label">Your Score</label>
+        <div class="score-row">
+          <input class="form-input" type="number" id="myScore"  min="0" max="99" placeholder="0" style="text-align:center;font-size:22px;font-family:'Rajdhani',sans-serif;font-weight:700"/>
+          <div class="score-vs">vs</div>
+          <input class="form-input" type="number" id="oppScore" min="0" max="99" placeholder="0" style="text-align:center;font-size:22px;font-family:'Rajdhani',sans-serif;font-weight:700"/>
+        </div>
+        <div class="form-hint" style="text-align:center">Enter the score exactly as shown on your DLS result screen</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Screenshot of Result Screen</label>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('screenshotFile').click()">
+          <div class="uz-icon">📸</div>
+          <p>Click to upload your DLS result screenshot</p>
+          <p style="font-size:11px;margin-top:4px">JPG, PNG — max 5MB</p>
+        </div>
+        <input type="file" id="screenshotFile" accept="image/*" style="display:none" onchange="previewScreenshot(this)"/>
+        <img id="uploadPreview" class="upload-preview hidden" alt="Preview"/>
+      </div>
+
+      <div id="submitModalError" class="auth-error hidden"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('submitModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="doSubmitResult()" id="submitResultBtn">Submit Result</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

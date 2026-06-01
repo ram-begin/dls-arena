@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "a4498aac-f447-42ce-87fc-8ea7239294f1",
+      "name": "Admin",
+      "email": "admin@dlsarena.com",
+      "password": "$2a$10$D/Y6JpiMgemSgxYpCsE.VeO737kO.qlnXXjdIffGrRx8GhnMsLBnK",
+      "is_admin": true,
+      "created_at": "2026-05-28T02:47:58.710Z"
+    },
+    {
+      "id": "32a59cde-a7a8-48ce-9163-84d81d094f4a",
+      "name": "Raghunath Sabat",
+      "email": "raghunathsabat87@gmail.com",
+      "password": "$2a$10$NmdGWcVFrwkw1Wdei7JxqOs0C0d.cliBmgEmK/Ca.j914Us6NVlqW",
+      "is_admin": false,
+      "created_at": "2026-05-28T03:29:24.797Z"
+    },
+    {
+      "id": "6217b766-94d6-4c5c-9062-51df8b66e8f8",
+      "name": "Raghunath Sabat",
+      "email": "raghunathsabat036@gmail.com",
+      "password": "$2a$10$xH4OCq3rXmvp1YUwmYgYU.IcD/SZRVYWluIjCIb13EEnUY8n3EgBC",
+      "is_admin": false,
+      "created_at": "2026-05-28T12:52:26.024Z"
+    }
+  ],
+  "tournaments": [],
+  "registrations": [],
+  "matches": [],
+  "announcements": [],
+  "refunds": [],
+  "audit_log": [],
+  "reset_requests": [],
+  "appeals": []
+}

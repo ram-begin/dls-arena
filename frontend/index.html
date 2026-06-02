@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>"/>
   <title>DLS Arena — Tournament Platform</title>
   <link rel="stylesheet" href="/css/style.css"/>
 </head>
@@ -102,9 +101,163 @@
   </div>
 </div>
 
-<div style="text-align:center;padding:32px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:12px">
-  © 2026 DLS Arena — Unofficial DLS Tournament Platform
+<!-- PRIZE POOL -->
+<div style="max-width:700px;margin:0 auto;padding:0 20px 60px">
+  <h2 style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;text-align:center;margin-bottom:8px">💰 Prize Pools</h2>
+  <p style="text-align:center;color:var(--muted);font-size:14px;margin-bottom:28px">The more players, the bigger the prize. Every tournament has real cash rewards.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)"></div>
+      <div style="font-size:28px;margin-bottom:8px">🥉</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px">Mini</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">8 Players</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--green)">₹100</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Winner takes all</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)">Entry: ₹20/player</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid #238636;border-radius:14px;padding:20px;text-align:center;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue)"></div>
+      <div style="position:absolute;top:10px;right:10px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px">POPULAR</div>
+      <div style="font-size:28px;margin-bottom:8px">🥈</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px">Standard</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">16 Players</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--blue)">₹500</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">🥇 ₹300 &nbsp;🥈 ₹200</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)">Entry: ₹50/player</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow)"></div>
+      <div style="font-size:28px;margin-bottom:8px">🥇</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:4px">Premium</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">32 Players</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--yellow)">₹2,000</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">🥇 ₹1200 &nbsp;🥈 ₹500 &nbsp;🥉 ₹300</div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)">Entry: ₹100/player</div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:20px">
+    <a href="/auth.html#register" class="btn btn-primary">🏆 Join a Tournament Now</a>
+  </div>
 </div>
+
+<!-- FAQ -->
+<div style="max-width:700px;margin:0 auto;padding:0 20px 60px">
+  <h2 style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;text-align:center;margin-bottom:28px">❓ Frequently Asked Questions</h2>
+
+  <div style="display:flex;flex-direction:column;gap:12px" id="faqList">
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">How do I pay the entry fee?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        After registering, you'll be given a unique payment reference code and a payment link. Pay via UPI/GPay/PhonePe to the provided link. Include your reference code in the payment remarks. Then submit your UTR/transaction ID on your dashboard. Admin will verify and confirm your registration within a few hours.
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">How are match results verified?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Both players must submit a screenshot of the final score screen in DLS. Admin reviews both screenshots side by side. If both match, the score is confirmed automatically. If they don't match, admin investigates and makes a final decision.
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">How do I receive my prize money?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Prize money is sent directly to your UPI ID or bank account via GPay/PhonePe/NEFT within 24 hours of the tournament ending. Make sure your phone number is correct in your registration so we can contact you.
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">What happens if my opponent doesn't show up?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Each match has a 15-minute deadline from the scheduled start time. If your opponent doesn't submit their screenshot within 15 minutes, they automatically lose the match and you advance to the next round.
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">Can I get a refund if the tournament is cancelled?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Yes! If a tournament is cancelled by admin, full refunds are processed within 24 hours to all registered players via the same UPI method used for payment. Contact us on WhatsApp if you don't receive it.
+      </div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer">
+      <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-weight:600;font-size:14px">Is DLS Arena free to join?</div>
+        <span style="color:var(--muted);font-size:18px;transition:transform .2s" class="faq-arrow">▼</span>
+      </div>
+      <div class="faq-body hidden" style="padding:0 16px 14px;font-size:13px;color:var(--muted);line-height:1.6">
+        Creating an account is 100% free. We also run free tournaments regularly for new players to get started. Paid tournaments have entry fees that go directly into the prize pool for winners.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WHATSAPP CTA -->
+<div style="max-width:700px;margin:0 auto;padding:0 20px 60px">
+  <div style="background:linear-gradient(135deg,#0d2818,#0f1f30);border:1px solid #238636;border-radius:16px;padding:32px 24px;text-align:center">
+    <div style="font-size:40px;margin-bottom:12px">💬</div>
+    <h2 style="font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px">Join Our WhatsApp Community</h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.6">Get notified about new tournaments, results, and updates. Connect with other DLS players across India.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/919337782645?text=Hi!%20I%20want%20to%20join%20DLS%20Arena%20tournaments" target="_blank" class="btn btn-primary" style="background:#25D366;font-size:14px;padding:12px 24px">
+        💬 Chat on WhatsApp
+      </a>
+      <a href="/auth.html#register" class="btn btn-ghost" style="font-size:14px;padding:12px 24px">
+        🏆 Register Now
+      </a>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted)">📱 Available 9 AM – 10 PM IST · Response within 2 hours</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--border);padding:32px 20px">
+  <div style="max-width:700px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700">⚽ DLS <span style="color:var(--green)">Arena</span></div>
+    <div style="font-size:12px;color:var(--muted)">© 2026 DLS Arena · Unofficial DLS Tournament Platform · India</div>
+    <div style="display:flex;gap:12px">
+      <a href="/auth.html" style="font-size:12px;color:var(--muted);text-decoration:none">Sign In</a>
+      <a href="/auth.html#register" style="font-size:12px;color:var(--muted);text-decoration:none">Register</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const body = el.querySelector('.faq-body');
+  const arrow = el.querySelector('.faq-arrow');
+  const isOpen = !body.classList.contains('hidden');
+  // Close all
+  document.querySelectorAll('.faq-body').forEach(b => b.classList.add('hidden'));
+  document.querySelectorAll('.faq-arrow').forEach(a => a.style.transform = '');
+  // Open clicked if it was closed
+  if (!isOpen) {
+    body.classList.remove('hidden');
+    arrow.style.transform = 'rotate(180deg)';
+  }
+}
+</script>
 
 <script>
   // If already logged in, redirect

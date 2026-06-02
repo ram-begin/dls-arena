@@ -59,7 +59,11 @@ function renderOverview() {
     const t = allTournaments.find(x => x.id === r.tournament_id);
     return sum + (t ? (parseFloat(t.entry_fee) || 0) : 0);
   }, 0);
-  const pending = allRegs.filter(r => r.status === 'pending').length;
+  const pending = allRegs.filter(r => {
+  if (r.status !== 'pending') return false;
+  const t = allTournaments.find(x => x.id === r.tournament_id);
+  return t && parseFloat(t.entry_fee) > 0;
+}).length;
   const reviews = allMatches.filter(m => m.status === 'pending_review').length;
 
   document.getElementById('overviewStats').innerHTML = `
@@ -139,10 +143,16 @@ function renderAdminTournaments() {
         <!-- Pending players with confirm/reject -->
         ${pend.length ? `
         <div style="margin-bottom:12px">
-          <div class="match-section-label">Pending Payment (${pend.length})</div>
+          <div class="match-section-label">${parseFloat(t.entry_fee) > 0 ? `Pending Payment (${pend.length})` : `Pending Profile Review (${pend.length})`}</div>
           ${pend.map(r => `
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bg3)">
-            <span style="font-size:13px">${r.player_name}</span>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bg3);gap:10px">
+            <div style="display:flex;align-items:center;gap:10px;flex:1">
+              ${r.profile_screenshot ? `<a href="${uploadUrl(r.profile_screenshot)}" target="_blank"><img src="${uploadUrl(r.profile_screenshot)}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--border)" title="DLS Profile"/></a>` : ''}
+              <div>
+                <div style="font-size:13px;font-weight:600">${escapeHtml(r.player_name)}</div>
+                <div style="font-size:11px;color:var(--muted)">📱 ${r.phone || '—'} ${r.utr_number ? `• UTR: ${r.utr_number}` : parseFloat(t.entry_fee) > 0 ? '• ⚠ No UTR' : ''}</div>
+              </div>
+            </div>
             <div style="display:flex;gap:6px">
               <button class="btn btn-primary btn-sm" onclick="confirmReg('${r.id}')">✅ Confirm</button>
               <button class="btn btn-danger  btn-sm" onclick="rejectReg('${r.id}')">✕ Reject</button>
@@ -174,8 +184,16 @@ function renderAdminTournaments() {
 
 // ── PAYMENTS ──────────────────────────────────────────────
 function renderPayments() {
-  const pending   = allRegs.filter(r => r.status === 'pending');
-  const confirmed = allRegs.filter(r => r.status === 'confirmed');
+ const pending   = allRegs.filter(r => {
+  if (r.status !== 'pending') return false;
+  const t = allTournaments.find(x => x.id === r.tournament_id);
+  return t && parseFloat(t.entry_fee) > 0;
+});
+const confirmed = allRegs.filter(r => {
+  if (r.status !== 'confirmed') return false;
+  const t = allTournaments.find(x => x.id === r.tournament_id);
+  return t && parseFloat(t.entry_fee) > 0;
+});
 
   document.getElementById('pendingCount').textContent = pending.length ? `(${pending.length})` : '';
 

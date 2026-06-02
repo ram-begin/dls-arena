@@ -429,3 +429,85 @@ a:hover { text-decoration: underline; }
 .text-green { color: var(--green); }
 .text-center { text-align: center; }
 .w-full { width: 100%; }
+
+/* ── MOBILE RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* Navbar */
+  .navbar-inner { padding: 0 12px; gap: 8px; }
+  .navbar-brand { font-size: 16px; }
+  .btn-sm { padding: 5px 10px; font-size: 11px; }
+
+  /* Hero */
+  .hero { padding: 48px 16px 36px; }
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 14px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .hero-btns .btn { width: 100%; max-width: 280px; justify-content: center; }
+
+  /* Features grid */
+  .features { grid-template-columns: 1fr; padding: 24px 16px; gap: 12px; }
+
+  /* Steps */
+  .steps { padding: 0 16px 40px; }
+  .steps h2 { font-size: 22px; }
+
+  /* Stat grids */
+  .stat-grid { grid-template-columns: 1fr 1fr; padding: 12px 16px 0; gap: 10px; }
+  .stat-mini-grid { grid-template-columns: repeat(2,1fr); padding: 12px 16px 0; }
+  .stat-grid-3 { grid-template-columns: 1fr 1fr; }
+
+  /* Tabs */
+  .tab-btn { padding: 12px 10px; font-size: 12px; }
+
+  /* Cards */
+  .card-body { padding: 12px; }
+  .t-card-body { padding: 12px; }
+  .t-card-name { font-size: 15px; }
+
+  /* Forms */
+  .form-row { grid-template-columns: 1fr; }
+  .auth-card { padding: 24px 16px; }
+
+  /* Modals */
+  .modal { max-height: 95vh; }
+  .modal-header { padding: 14px 16px; }
+  .modal-body { padding: 14px 16px; }
+  .modal-footer { padding: 12px 16px; flex-wrap: wrap; }
+
+  /* Screenshots */
+  .screenshots-row { grid-template-columns: 1fr; }
+
+  /* Match items */
+  .match-player-name { max-width: 80px; font-size: 12px; }
+
+  /* Entry cards */
+  .entry-header { padding: 12px; }
+  .entry-body { padding: 12px; }
+
+  /* Review actions */
+  .review-actions { flex-direction: column; }
+  .review-actions .btn { width: 100%; justify-content: center; }
+
+  /* Schedule */
+  .schedule-card { margin: 0 16px 16px; }
+  .schedule-row { grid-template-columns: 50px 1fr auto; gap: 6px; }
+  .schedule-fee { display: none; }
+
+  /* Leaderboard */
+  .lb-row { grid-template-columns: 32px 1fr auto auto; gap: 6px; }
+
+  /* Announcement */
+  .ann-banner { padding: 10px 12px; }
+
+  /* Room card */
+  .room-id { font-size: 16px; letter-spacing: 2px; }
+  .room-pw  { font-size: 14px; letter-spacing: 2px; }
+}
+
+@media (max-width: 400px) {
+  .hero h1 { font-size: 26px; }
+  .navbar-brand { font-size: 14px; }
+  .tab-btn { padding: 10px 8px; font-size: 11px; }
+  .stat-grid { grid-template-columns: 1fr; }
+}

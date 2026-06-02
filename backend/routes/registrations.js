@@ -64,6 +64,7 @@ router.post('/', auth, upload.single('profile_screenshot'), (req, res) => {
   let payRef = 'DLS-';
   for (let i = 0; i < 6; i++) payRef += chars[Math.floor(Math.random() * chars.length)];
 
+  const isFree = !t.entry_fee || parseFloat(t.entry_fee) === 0;
   const reg = {
     id: uuid(),
     tournament_id,
@@ -72,10 +73,11 @@ router.post('/', auth, upload.single('profile_screenshot'), (req, res) => {
     team_name:   team_name.trim(),
     phone:       cleanPhone,
     profile_screenshot: `/uploads/${req.file.filename}`,
-    payment_ref: payRef,       // unique code player must include in payment remarks
-    utr_number:  null,         // filled by player after payment
-    status: 'pending',
-    notification: null,
+    payment_ref: payRef,
+    utr_number:  null,
+    status: isFree ? 'confirmed' : 'pending',
+    notification: isFree ? `🎉 You're registered for <b>${t.name}</b>! Get ready to play! ⚽🔥` : null,
+    notified_at: isFree ? new Date().toISOString() : null,
     registered_at: new Date().toISOString()
   };
   db.get('registrations').push(reg).write();

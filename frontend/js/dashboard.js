@@ -430,15 +430,18 @@ function openRegModal(tournamentId) {
   document.getElementById('regModalError').classList.add('hidden');
 
   const t = activeRegTournament;
+ const isFree = !t.entry_fee || parseFloat(t.entry_fee) === 0;
   document.getElementById('regModalInfo').innerHTML = `
     <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px">${t.name}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <span class="badge badge-muted">${t.format || 'Knockout'}</span>
-      ${t.entry_fee ? `<span class="badge badge-warning">₹${t.entry_fee} Entry Fee</span>` : '<span class="badge badge-success">Free</span>'}
+      ${!isFree ? `<span class="badge badge-warning">₹${t.entry_fee} Entry Fee</span>` : '<span class="badge badge-success">Free Entry</span>'}
       ${t.prize ? `<span class="badge badge-info">🏆 ${t.prize}</span>` : ''}
     </div>
-    ${t.entry_fee && t.payment_link ? `<div style="font-size:12px;color:var(--muted);margin-top:8px">After registering, you'll be redirected to pay ₹${t.entry_fee}. Your spot is confirmed after admin verifies payment.</div>` : ''}
+    ${!isFree && t.payment_link ? `<div style="font-size:12px;color:var(--muted);margin-top:8px">After registering, you'll be redirected to pay ₹${t.entry_fee}. Your spot is confirmed after admin verifies payment.</div>` : ''}
+    ${isFree ? `<div style="font-size:12px;color:var(--green);margin-top:8px">✅ This is a free tournament. You'll be registered instantly.</div>` : ''}
   `;
+  document.getElementById('regSubmitBtn').textContent = isFree ? 'Register →' : 'Register & Pay →';
   document.getElementById('regModal').classList.remove('hidden');
 }
 
@@ -485,7 +488,7 @@ async function submitRegistration() {
     renderTournaments();
     renderMyEntries();
 
-    if (activeRegTournament.entry_fee && activeRegTournament.payment_link) {
+    if (activeRegTournament.entry_fee && parseFloat(activeRegTournament.entry_fee) > 0 && activeRegTournament.payment_link) {
       setTimeout(() => { window.open(activeRegTournament.payment_link, '_blank'); }, 300);
     }
   } catch (e) {
